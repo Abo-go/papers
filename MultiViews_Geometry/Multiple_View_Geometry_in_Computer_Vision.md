@@ -5,6 +5,7 @@
     - [9.1 Epipolar geometry](#91-epipolar-geometry)
       - [Geometric derivation of fundamental matrix](#geometric-derivation-of-fundamental-matrix)
       - [Algebraic derivation of fundamental matrix](#algebraic-derivation-of-fundamental-matrix)
+      - [Example9.2](#example92)
 
 ## 9. Epipolar Geometry and the Fundamental Matrix
 
@@ -38,3 +39,15 @@ $X$通过$P$矩阵投影到$x$可以表示为 $PX = x$。它的解是
 $$X(\lambda) = P^+x + \lambda C$$
 $P^+$是$P$的伪逆(广义逆矩阵：奇异矩阵和非方阵没有逆矩阵，但可以有[伪逆矩阵](https://www.jianshu.com/p/609fa0cce409))，$PP^+ = I$, $C$是一个非空向量，也就是相机中心，$PC = 0$。标量$\lambda$参数化射线。取射线上的两个点$P^+x$(当$\lambda = 0$),第一个相机中心点$C$(当$\lambda = \infty$)。这两个点通过矩阵$P'$投影到第二个相机成像面表示为$P'P^+x$和$P'C$。两点连线即为极线：$l' = (P'C)\times(P'P^+x)$。极点$e' = P'C$, 因此$l' = [e']_\times(P'P^+)x = Fx$, 因此$F$可以表示为
 $$F = [e']_\times P'P^+$$
+
+#### Example9.2
+
+假设已经标定出相机内参矩阵，而且世界系中心在第一个相机的光心处
+$$P = K[I\ |\ 0]\qquad P' = K'[R\ |\ \bold{t}]$$
+则有
+$$P^+ =\left[\begin{matrix} K^{-1}\\ \bold{0^T}\end{matrix}\right]\qquad
+C =\left( \begin{matrix}\bold{0}\\1\end{matrix}\right)$$
+以及
+$$F = [P'\bold{C}]_\times P'P^+\\
+= [K'\bold{t}]_\times K'RK^{-1} = K'^{-T}[\bold{t}]_\times RK^{-1} = K'^{-T}R[R^T\bold{t}]_\times K^{-1} = K'^{-T}RK^T[KR^Tt]_\times$$
+(以上推导基于公式：$[x]_\times A = A^{-T}[A^{-1}x]_\times$)
